@@ -1,4 +1,4 @@
-package chen.example.algorithm;
+package chen.example.algorithm.test20200505;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.Map;
  * @author: chenjiawang
  * @CreateDate: 2020/5/5 21:10
  */
-public class Test20200505 {
+public class Test01 {
 
 //    给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
 //
@@ -26,17 +26,17 @@ public class Test20200505 {
 
     public static void main(String[] args) {
         int[] nums = new int[]{2, 7, 11, 15,4,7};
-        Test20200505 test20200505 = new Test20200505();
-        int[] ints = test20200505.twoSum(nums, 9);
+        Test01 test01 = new Test01();
+        int[] ints = test01.twoSum(nums, 9);
         System.out.println(ints);
     }
 
     public int[] twoSum(int[] nums, int target) {
-       return test02(nums,target);
+       return test03(nums,target);
     }
 
     /**
-     * 时间复杂度n^2
+     * 时间复杂度o(n^2)
      * @param nums
      * @param target
      * @return
@@ -63,7 +63,7 @@ public class Test20200505 {
 
 
     /**
-     * 2n
+     * o(n)
      * @param nums
      * @param target
      * @return
@@ -83,6 +83,30 @@ public class Test20200505 {
             if(map.containsKey(n) && (m=map.get(n))!=i){
                 return new int[]{i,m};
             }
+        }
+        return new int[0];
+    }
+
+
+    /**
+     * o(n)
+     * @param nums
+     * @param target
+     * @return
+     */
+    private int[] test03(int[] nums, int target){
+        if(nums==null || nums.length==0){
+            return new int[0];
+        }
+        int length = nums.length;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i=0;i<length;i++){
+            int num = nums[i];
+            int i1 = target - num;
+            if(map.containsKey(i1)){
+                return new int[]{map.get(i1),i};
+            }
+            map.put(num,i);
         }
         return new int[0];
     }
