@@ -2,8 +2,12 @@ package chen.example.algorithm.test20200506;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 /**
  * @Description:
@@ -79,16 +83,24 @@ public class Test02 {
      * @return
      */
     private boolean findTarget(TreeNode root, int k) {
+        return test03(root, k);
+    }
 
+    /**
+     * @param root
+     * @param k
+     * @return
+     */
+    private boolean test01(TreeNode root, int k) {
         if (root == null) {
             return false;
         }
         Map<Integer, Integer> map = new HashMap<>();
         List<Integer> list = new ArrayList<>();
         addList(root, list, map);
-        for (int i = 0; i <list.size() ; i++) {
+        for (int i = 0; i < list.size(); i++) {
             int y;
-            if (map.containsKey(y=(k - list.get(i))) && map.get(y)!=i) {
+            if (map.containsKey(y = (k - list.get(i))) && map.get(y) != i) {
                 return true;
             }
         }
@@ -102,70 +114,68 @@ public class Test02 {
         TreeNode left = root.left;
         TreeNode right = root.right;
         list.add(root.val);
-        map.put(root.val, list.size()-1);
+        map.put(root.val, list.size() - 1);
         if (left != null) {
             list.add(left.val);
-            map.put(left.val, list.size()-1);
+            map.put(left.val, list.size() - 1);
             addList(left.left, list, map);
             addList(left.right, list, map);
         }
         if (right != null) {
             list.add(right.val);
-            map.put(right.val, list.size()-1);
+            map.put(right.val, list.size() - 1);
             addList(right.left, list, map);
             addList(right.right, list, map);
         }
     }
 
     /**
-     * o(n)
-     *
-     * @param numbers
-     * @param target
+     * @param root
+     * @param k
      * @return
      */
-    private int[] test02(int[] numbers, int target) {
-        if (numbers == null || numbers.length == 0) {
-            return new int[0];
-        }
-        int length = numbers.length;
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < length; i++) {
-            map.put(numbers[i], i + 1);
-        }
-        for (int i = 0; i < length; i++) {
-            int n = target - numbers[i];
-            int m;
-            if (map.containsKey(n) && (m = map.get(n)) != i) {
-                return new int[]{i + 1, m};
-            }
-        }
-        return new int[0];
+    private boolean test02(TreeNode root, int k) {
+
+        Set<Integer> set = new HashSet<>();
+        return find02(root, k, set);
     }
 
 
+    private boolean find02(TreeNode root, int k, Set<Integer> set) {
+        if (root == null) {
+            return false;
+        }
+        int i = k - root.val;
+        if (set.contains(i)) {
+            return true;
+        }
+        set.add(root.val);
+        return find02(root.left, k, set) || find02(root.right, k, set);
+    }
+
     /**
-     * o(n)
-     *
-     * @param numbers
-     * @param target
+     * @param root
+     * @param k
      * @return
      */
-    private int[] test03(int[] numbers, int target) {
-        if (numbers == null || numbers.length == 0) {
-            return new int[0];
-        }
-        int length = numbers.length;
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < length; i++) {
-            int num = numbers[i];
-            int i1 = target - num;
-            if (map.containsKey(i1)) {
-                return new int[]{map.get(i1), i + 1};
+    private boolean test03(TreeNode root, int k) {
+        Set<Integer> set = new HashSet<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            if (queue.peek() != null) {
+                TreeNode node = queue.remove();
+                if (set.contains(k - node.val)) {
+                    return true;
+                }
+                set.add(node.val);
+                queue.add(node.right);
+                queue.add(node.left);
+            } else {
+                queue.remove();
             }
-            map.put(num, i + 1);
         }
-        return new int[0];
+        return false;
     }
 
     public class TreeNode {
