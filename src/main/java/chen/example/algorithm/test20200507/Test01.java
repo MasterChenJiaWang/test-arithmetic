@@ -2,7 +2,6 @@ package chen.example.algorithm.test20200507;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -46,28 +45,34 @@ public class Test01 {
     // 返回 false。
 
     public static void main(String[] args) {
-        TreeNode treeNode1 = new TreeNode(0);
-        TreeNode treeNode2 = new TreeNode(2, null, null);
-        TreeNode treeNode3 = new TreeNode(1);
-        TreeNode treeNode4 = new TreeNode(4, treeNode3, treeNode2);
-        TreeNode treeNode5 = new TreeNode(5);
-        TreeNode s = new TreeNode(3, treeNode4, treeNode5);
-        //
-        TreeNode treeNodet1 = new TreeNode(1);
-        TreeNode treeNodet2 = new TreeNode(2);
-        TreeNode t = new TreeNode(4, treeNodet1, treeNodet2);
+        // TreeNode treeNode1 = new TreeNode(0);
+        // TreeNode treeNode2 = new TreeNode(2, treeNode1, null);
+        // TreeNode treeNode3 = new TreeNode(1);
+        // TreeNode treeNode4 = new TreeNode(4, treeNode3, treeNode2);
+        // TreeNode treeNode5 = new TreeNode(5);
+        // TreeNode s = new TreeNode(3, treeNode4, treeNode5);
+        // //
+        // TreeNode treeNodet1 = new TreeNode(1);
+        // TreeNode treeNodet2 = new TreeNode(2);
+        // TreeNode t = new TreeNode(4, treeNodet1, treeNodet2);
 
-        // TreeNode s = new TreeNode(12);
-        // TreeNode t = new TreeNode(2);
+        TreeNode s = new TreeNode(12);
+        TreeNode t = new TreeNode(2);
         Test01 test01 = new Test01();
         System.out.println(test01.isSubtree(s, t));
     }
 
     public boolean isSubtree(TreeNode s, TreeNode t) {
         //
-        return test01(s, t);
+        return test02(s, t);
     }
 
+    /**
+     *
+     * @param s
+     * @param t
+     * @return
+     */
     private boolean test01(TreeNode s, TreeNode t) {
         if (s == null || t == null) {
             return false;
@@ -97,10 +102,46 @@ public class Test01 {
         addList(t.right, list);
     }
 
-    private void checkS(TreeNode s, Map<Integer, TreeNode> tmap) {
-        if (s == null) {
-            return;
+    /**
+     *
+     * @param s
+     * @param t
+     * @return
+     */
+    private boolean test02(TreeNode s, TreeNode t) {
+        // 要匹配的头节点 t 为 null 则 t 树一定为 s 树的子树。
+        if (t == null) {
+            return true;
         }
+        // 要匹配的 t 不为空情况下，如果匹配树的头节点 s 为空则不符合。
+        if (s == null) {
+            return false;
+        }
+        // 根节点开始或者在左子树和右子树中匹配 t 树。
+        return isSubtree(s.left, t) || isSubtree(s.right, t) || isSameNode(s, t);
+    }
+
+    /**
+     *
+     * @param s
+     * @param t
+     * @return
+     */
+    private boolean isSameNode(TreeNode s, TreeNode t) {
+        // 两个节点都为空，则表示两个节点相同。
+        if (s == null && t == null) {
+            return true;
+        }
+        // 不同时为空的情况下如果有一个节点为空，则表示两个节点不相同。
+        if (s == null || t == null) {
+            return false;
+        }
+        // 两个节点值不一样，表示两个节点不相同。
+        if (s.val != t.val) {
+            return false;
+        }
+        // 继续遍历比较左右子节点。
+        return isSameNode(s.left, t.left) && isSameNode(s.right, t.right);
     }
 
     /**
