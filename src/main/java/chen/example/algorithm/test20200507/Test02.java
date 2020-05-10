@@ -23,17 +23,17 @@ public class Test02 {
 
     public static void main(String[] args) {
 
-//        ListNode l1 = new ListNode(2);
-//        ListNode listNode11 = new ListNode(4);
-//        ListNode listNode12 = new ListNode(3);
-//        l1.next = listNode11;
-//        listNode11.next = listNode12;
-//
-//        ListNode l2 = new ListNode(5);
-//        ListNode listNode21 = new ListNode(6);
-//        ListNode listNode22 = new ListNode(4);
-//        l2.next = listNode21;
-//        listNode21.next = listNode22;
+        ListNode l1 = new ListNode(2);
+        ListNode listNode11 = new ListNode(4);
+        ListNode listNode12 = new ListNode(3);
+        l1.next = listNode11;
+        listNode11.next = listNode12;
+
+        ListNode l2 = new ListNode(5);
+        ListNode listNode21 = new ListNode(6);
+        ListNode listNode22 = new ListNode(4);
+        l2.next = listNode21;
+        listNode21.next = listNode22;
 
 
         //
@@ -53,18 +53,19 @@ public class Test02 {
         Test02 test02 = new Test02();
 
 //        int[] sl1=new int[]{9};
-        int[] sl1 = new int[]{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        ListNode l1 = test02.addNode(sl1);
+//        int[] sl1 = new int[]{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+//        ListNode l1 = test02.addNode(sl1);
 //        int[] sl2=new int[]{1,9,9,9,9,9,9,9,9,9,9,9,9};
-        int[] sl2 = new int[]{5, 6, 4};
-        ListNode l2 = test02.addNode(sl2);
+//        int[] sl2 = new int[]{5, 6, 4};
+//        ListNode l2 = test02.addNode(sl2);
         ListNode listNode = test02.addTwoNumbers(l1, l2);
 
         System.out.println(listNode.val);
+
     }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return test02(l1, l2);
+        return test03(l1, l2);
     }
 
     private ListNode test01(ListNode l1, ListNode l2) {
@@ -143,6 +144,28 @@ public class Test02 {
             listNode = lastListNode;
         }
         return lastListNode;
+    }
+
+    private ListNode test03(ListNode l1, ListNode l2) {
+        int caseNum = 0;
+        ListNode resultListNode = new ListNode(0);
+        ListNode newl1 = l1, newl2 = l2, nextListNode=resultListNode;
+        while (newl1 != null || newl2 != null) {
+            int i1 = newl1 == null ? 0 : newl1.val;
+            int i2 = newl2 == null ? 0 : newl2.val;
+            //0 - 18
+            int sum = caseNum+i1 + i2;
+            caseNum = sum / 10;
+            nextListNode.next=new ListNode(sum % 10);
+            nextListNode=nextListNode.next;
+            newl1=newl1==null? null :newl1.next;
+            newl2=newl2==null? null :newl2.next;
+        }
+        if (caseNum > 0) {
+            nextListNode.next = new ListNode(caseNum);
+        }
+        return resultListNode.next;
+
     }
 
     public static class ListNode {
