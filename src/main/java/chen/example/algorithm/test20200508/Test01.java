@@ -165,6 +165,8 @@ public class Test01 {
         return maxArea * maxArea;
     }
 
+
+
     private int right(int count, int x, char[] matrix) {
         int matrix1 = matrix[x];
         if (matrix1 == 1) {

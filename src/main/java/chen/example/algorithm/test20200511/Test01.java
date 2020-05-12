@@ -27,7 +27,7 @@ public class Test01 {
     public static void main(String[] args) {
         Test01 test01 = new Test01();
         // System.out.println(Math.pow(2, 31) - 1);
-        int x = 147483648;
+        int x = 1474836489;
         System.out.println(x);
         int reverse = test01.reverse(x);
         System.out.println(reverse);
@@ -55,6 +55,7 @@ public class Test01 {
         return (l > Integer.MAX_VALUE || l < -Integer.MAX_VALUE) ? 0 : (int)l;
     }
 
+    //147483648
     private int test02(int x) {
         int rev = 0;
         while (x != 0) {
@@ -69,5 +70,10 @@ public class Test01 {
             rev = rev * 10 + pop;
         }
         return rev;
+    }
+
+    private int test03(int x){
+
+        return 0;
     }
 }
