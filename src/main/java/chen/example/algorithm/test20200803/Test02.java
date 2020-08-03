@@ -3,6 +3,7 @@ package chen.example.algorithm.test20200803;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * 二位数组 转换成 稀疏数组
@@ -64,7 +65,6 @@ public class Test02 {
         for (int i = 0; i < sparseInt.length; i++) {
             int[] anInt = sparseInt[i];
             for (int i1 = 0; i1 < anInt.length; i1++) {
-                System.out.print(anInt[i1]);
                 stringBuilder.append(anInt[i1]);
                 stringBuilder.append("\t");
             }
@@ -75,6 +75,42 @@ public class Test02 {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(".........................");
+        int x = 0;
+        int y = 0;
+        int newSum = 0;
+        List<String> list = null;
+        try {
+            list = Files.readAllLines(Paths.get("C:\\Users\\曾帅\\Desktop\\22.txt"));
+            list.forEach(System.out::println);
 
+            String[] split = list.get(0).split("\t");
+            x = Integer.parseInt(split[0]);
+            y = Integer.parseInt(split[1]);
+            newSum = Integer.parseInt(split[2]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //
+        int[][] newInt = new int[x][y];
+        for (int i = 1; i < list.size(); i++) {
+            String s = list.get(i);
+            String[] split = s.split("\t");
+            int x1 = Integer.parseInt(split[0]);
+            int y1 = Integer.parseInt(split[1]);
+            int value = Integer.parseInt(split[2]);
+            newInt[x1][y1] = value;
+        }
+        System.out.println(".........................");
+        //
+        for (int i = 0; i < newInt.length; i++) {
+            int[] anInt = newInt[i];
+            for (int i1 = 0; i1 < anInt.length; i1++) {
+                System.out.print(anInt[i1]);
+                System.out.print(" ");
+            }
+            System.out.println();
+        }
     }
 }
