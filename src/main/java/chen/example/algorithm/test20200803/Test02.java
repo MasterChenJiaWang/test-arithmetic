@@ -71,7 +71,7 @@ public class Test02 {
             stringBuilder.append("\n");
         }
         try {
-            Files.write(Paths.get("C:\\Users\\曾帅\\Desktop\\22.txt"), stringBuilder.toString().getBytes());
+            Files.write(Paths.get("C:\\Users\\曾帅\\Desktop\\map.data"), stringBuilder.toString().getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class Test02 {
         int newSum = 0;
         List<String> list = null;
         try {
-            list = Files.readAllLines(Paths.get("C:\\Users\\曾帅\\Desktop\\22.txt"));
+            list = Files.readAllLines(Paths.get("C:\\Users\\曾帅\\Desktop\\map.data"));
             list.forEach(System.out::println);
 
             String[] split = list.get(0).split("\t");
